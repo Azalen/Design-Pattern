@@ -20,8 +20,6 @@ class konkretesSubjekt : public Subjekt {
             subjektZustand = neuerZustand;
             this->benachrichtige();
         }
-
-
 };
 
 #endif

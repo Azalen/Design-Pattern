@@ -5,7 +5,7 @@
 
 #include <list>
 
-// BAD PRACTICE ! BETTER USE STD:: ! ONLY FOR CONVENIENCE !
+// ! BAD PRACTICE ! BETTER USE STD:: ! ONLY FOR CONVENIENCE !
 using namespace std;
 
 class Subjekt {
