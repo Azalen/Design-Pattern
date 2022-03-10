@@ -14,7 +14,7 @@ class konkreterBeobachter : public Beobachter {
             cout << "Das Subjekt wird nun beobachtet." << endl;
             cout << "aktueller Zustand : " << beobachteterZustand << endl << endl;
         }
-        ~konkreterBeobachter(){};
+        virtual ~konkreterBeobachter(){};
 
         void aktualisieren(Subjekt * veraendertesSubjekt){
             konkreterBeobachter::beobachteterZustand = subjekt->gibZustand();

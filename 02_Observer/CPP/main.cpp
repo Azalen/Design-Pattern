@@ -21,7 +21,6 @@ int main(){
     s->setzeZustand("next state");
     s->setzeZustand("another state");
 
-
     // Speicherplatz freigeben
     delete b;
     delete s;
