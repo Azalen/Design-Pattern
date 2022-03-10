@@ -1,4 +1,12 @@
+#ifndef SUBJEKT_H
+#define SUBJEKT_H
+
 #include "beobachter.h"
+
+#include <list>
+
+// BAD PRACTICE ! BETTER USE STD:: ! ONLY FOR CONVENIENCE !
+using namespace std;
 
 class Subjekt {
     private:
@@ -21,27 +29,9 @@ class Subjekt {
             list<Beobachter*>::iterator it;
             for(it = beobachterList.begin(); it != beobachterList.end(); ++it){
                 // sende Information an alle Beobachter, dass sich Daten geändert haben
-                (*it)->aktualisieren(this);
+                (*it)->aktualisieren();
             }
         }
 };
 
-// konkretes Subjekt - hier eine Nachricht (string)
-class konkretesSubjekt : public Subjekt {
-    private:
-        string subjektZustand = "initial state";
-        
-    public:
-        konkretesSubjekt() : Subjekt() {}
-        virtual ~konkretesSubjekt(){}
-
-        const string & gibZustand() const {
-            return subjektZustand;
-        }
-        void setzeZustand(const string & neuerZustand){
-            subjektZustand = neuerZustand;
-            this->benachrichtige();
-        }
-
-
-};
+#endif
