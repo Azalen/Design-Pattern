@@ -4,60 +4,61 @@ using namespace std;
 
 // Virtuelle Basisklasse == Interface
 // <<interface>> Komponente
-class IButton {
+class Button {
   public:
-    virtual ~IButton(){}
+    virtual ~Button(){}
     virtual void render() = 0;
 };
 
 // Konkrete Komponente
-class Button : public IButton {
+class KonkreterButton : public Button {
     public:
-        ~Button(){ cout << "Button destructed"; }
+        ~KonkreterButton(){ cout << "Button destructed" << endl; }
         void render() {
             cout << "<" 
                  << "\033[1;31m" << "button " 
                  << "\033[1;32m" << "type" 
-                 << "\033[0m" << "=" 
+                 << "\033[0m"    << "=" 
                  << "\033[1;33m" << "'submit' " 
-                 << "\033[1;32m" <<  "class" 
-                 << "\033[0m" << "=" 
+                 << "\033[1;32m" << "class" 
+                 << "\033[0m"    << "=" 
                  << "\033[1;33m" << "'btn ";
         }
 };
 
 // Dekorierer
-class Decorator : public IButton {
+class Decorator : public Button {
     private: 
-        IButton * component;
+        Button * component;
 
     protected:
         /**     Hier kommt wie schon beim Observer-Pattern Polymorphie von Zeigern zum Einsatz
-         *      Der Konstruktor erwartet einen Zeiger von Typ IButton* doch erhält in der Realität
-         *      immer Zeiger von Typ Button*
+         *      Der Konstruktor erwartet einen Zeiger von Typ Button* doch erhält in der Realität
+         *      immer Zeiger von Typ KonkreterButton*
          *      
          *      Polymorphie von Zeigern in C++ ermöglicht nun, dass die Zuweisung
-         *      IButton * = Button * erfolgreich ist 
+         *      Button * = KonkreterButton * erfolgreich ist 
          * 
-         *      Das heißt der Zeiger zeigt letztendlich doch auf ein Objekt vom Typ Button* und 
+         *      Das heißt der Zeiger zeigt letztendlich doch auf ein Objekt vom Typ KonkreterButton* und 
          *      nutzt dann auch die korrekte render()-Methode !
          * */
-        Decorator(IButton * component){
+        Decorator(Button * component){
             this->component = component;
         }
         ~Decorator() {
             delete component;
         }
-        void render() {
+        virtual void render() {
             component->render();
         }
+
 };
 
 // Konkreter Dekorierer A
 class ButtonPrimary : public Decorator {
     public:
-        ButtonPrimary(IButton * component) : Decorator(component) {}
-        ~ButtonPrimary(){ cout << "ButtonPrimary destructed"; }
+        ButtonPrimary(Button * component) : Decorator(component) {}
+        ~ButtonPrimary(){ cout << "ButtonPrimary destructed "; }
 
         void render() {
             Decorator::render();
@@ -68,8 +69,8 @@ class ButtonPrimary : public Decorator {
 // Konkreter Dekorierer B
 class ButtonSecondary : public Decorator {
     public:
-        ButtonSecondary(IButton * component) : Decorator(component) {}
-        ~ButtonSecondary(){ cout << "ButtonSecondary destructed"; }
+        ButtonSecondary(Button * component) : Decorator(component) {}
+        ~ButtonSecondary(){ cout << "ButtonSecondary destructed "; }
 
         void render() {
             Decorator::render();
@@ -80,8 +81,8 @@ class ButtonSecondary : public Decorator {
 // Konkreter Dekorierer C
 class ButtonSmall : public Decorator {
     public:
-        ButtonSmall(IButton * component) : Decorator(component) {}
-        ~ButtonSmall(){ cout << "ButtonSmall destructed"; }
+        ButtonSmall(Button * component) : Decorator(component) {}
+        ~ButtonSmall(){ cout << "ButtonSmall destructed "; }
 
         void render() {
             Decorator::render();
@@ -92,8 +93,8 @@ class ButtonSmall : public Decorator {
 // Konkreter Dekorierer D
 class ButtonLarge : public Decorator {
     public:
-        ButtonLarge(IButton * component) : Decorator(component) {}
-        ~ButtonLarge(){ cout << "ButtonLarge destructed"; }
+        ButtonLarge(Button * component) : Decorator(component) {}
+        ~ButtonLarge(){ cout << "ButtonLarge destructed "; }
 
         void render() {
             Decorator::render();
@@ -115,26 +116,30 @@ int main() {
     cout << endl;
 
     // BUTTON PRIMARY
-    IButton * bp = new ButtonPrimary(new Button);
+    Button * bp = new ButtonPrimary(new KonkreterButton);
     bp->render(); 
-    cout << "\033[0m" << "'></" 
+    cout << "\033[0m"    << "'></" 
          << "\033[1;31m" << "button" 
-         << "\033[0m" << ">" << endl << endl;
+         << "\033[0m"    << ">" << endl << endl;
 
     // BUTTON PRIMARY LARGE
-    IButton * bpl = new ButtonLarge(bp);
+    Button * bpl = new ButtonLarge(new ButtonPrimary(new KonkreterButton));
     bpl->render();
-    cout << "\033[0m" << "'></" 
+    cout << "\033[0m"    << "'></" 
          << "\033[1;31m" << "button" 
-         << "\033[0m" << ">" << endl << endl;
+         << "\033[0m"    << ">" << endl << endl;
 
     // BUTTON SECONDARY SMALL
-    IButton * bss = new ButtonSmall(new ButtonSecondary(new Button));
+    Button * bss = new ButtonSmall(new ButtonSecondary(new KonkreterButton));
     bss->render();
-    cout << "\033[0m" << "'></" 
+    cout << "\033[0m"    << "'></" 
          << "\033[1;31m" << "button" 
-         << "\033[0m" << ">" << endl << endl;
+         << "\033[0m"    << ">" << endl << endl;
     
+
+    delete bp;
+    delete bpl;
+    delete bss;
 
     return 0;
 }

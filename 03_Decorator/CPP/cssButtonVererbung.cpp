@@ -2,17 +2,17 @@
 
 using namespace std;
 
-class Button {
+class KonkreterButton {
     public:
         virtual void render() {
             cout << "<button type='submit' class='btn ";
         }
 };
 
-class ButtonPrimary : public Button {
+class ButtonPrimary : public KonkreterButton {
     public:
         void render() {
-            Button::render();
+            KonkreterButton::render();
             renderPrimary();
         }
     protected:
@@ -21,10 +21,10 @@ class ButtonPrimary : public Button {
         }
 };
 
-class ButtonSecondary : public Button {
+class ButtonSecondary : public KonkreterButton {
     public:
         void render() {
-            Button::render();
+            KonkreterButton::render();
             renderSecondary();
         }
     protected:
@@ -33,10 +33,10 @@ class ButtonSecondary : public Button {
         }
 };
 
-class ButtonLarge : public Button {
+class ButtonLarge : public KonkreterButton {
     public:
         void render() {
-            Button::render();
+            KonkreterButton::render();
             renderLarge();
         }
     protected:
@@ -45,10 +45,10 @@ class ButtonLarge : public Button {
         }
 };
 
-class ButtonSmall : public Button {
+class ButtonSmall : public KonkreterButton {
     public:
         void render() {
-            Button::render();
+            KonkreterButton::render();
             renderSmall();
         }
     protected:
