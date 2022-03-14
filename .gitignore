@@ -1,5 +1,8 @@
 /.vscode
 
+# Makefile
+Makefile
+
 # Prerequisites
 *.d
 
