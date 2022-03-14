@@ -32,16 +32,16 @@ class Decorator : public Button {
         Button * component;
 
     protected:
-        /**     Hier kommt wie schon beim Observer-Pattern Polymorphie von Zeigern zum Einsatz
-         *      Der Konstruktor erwartet einen Zeiger von Typ Button* doch erhält in der Realität
-         *      immer Zeiger von Typ KonkreterButton*
-         *      
-         *      Polymorphie von Zeigern in C++ ermöglicht nun, dass die Zuweisung
-         *      Button * = KonkreterButton * erfolgreich ist 
-         * 
-         *      Das heißt der Zeiger zeigt letztendlich doch auf ein Objekt vom Typ KonkreterButton* und 
-         *      nutzt dann auch die korrekte render()-Methode !
-         * */
+/**     Hier kommt wie schon beim Observer-Pattern Polymorphie von Zeigern zum Einsatz
+ *      Der Konstruktor erwartet einen Zeiger von Typ Button* doch erhält in der Realität
+ *      immer Zeiger von Typ KonkreterButton*
+ *      
+ *      Polymorphie von Zeigern in C++ ermöglicht nun, dass die Zuweisung
+ *      Button * = KonkreterButton * erfolgreich ist 
+ * 
+ *      Das heißt der Zeiger zeigt letztendlich doch auf ein Objekt vom Typ KonkreterButton* und 
+ *      nutzt dann auch die korrekte render()-Methode !
+ * */
         Decorator(Button * component){
             this->component = component;
         }

@@ -1,13 +1,16 @@
+// KOMPONENTE
 interface IButton {
     operation(): string;
 }
 
+// KONKRETE KOMPONENTE
 class Button implements IButton {
     public operation(): string {
         return 'Button-Komponente';
     }
 }
 
+// DEKORIERER
 class Decorator implements IButton {
     protected component: IButton;
 
@@ -43,9 +46,6 @@ function clientCode(component: IButton) {
     console.log(`RESULT: ${component.operation()}`);
 }
 
-/**
- * This way the client code can support both simple components...
- */
 const button = new Button();
 clientCode(button);
 
