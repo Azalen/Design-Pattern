@@ -53,6 +53,9 @@ class FarbigerApfel : public Decorator {
             Decorator::ausgabe();
             cout << farbe << endl;
         }
+
+        const string & getFarbe() const { return farbe; }
+
     private:
         string farbe;
 };
@@ -63,7 +66,13 @@ int main() {
     cout << endl;
 
     Apfel * a = new FarbigerApfel(new KonkreterApfel(10), "blau");
+
+    // statischer Typ Apfel* -> kennt nur Attribute/Methoden des Interface Apfel
     a->ausgabe();
+
+    // dynamischer Typ FarbigerApfel* -> braucht expliziten type cast
+    cout << ( (FarbigerApfel *) a)->getFarbe() << endl;
+
 
     return 0;
 }
